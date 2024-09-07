@@ -7,6 +7,15 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+    def rate(self, lector, course, grade):
+        if (isinstance(lector, Lecturer) and course in self.courses_in_progress and course in lector.courses_attached
+            and grade in range(1, 11)):
+            if course in lector.grades:
+                lector.grades[course] += [grade]
+            else:
+                lector.grades[course] = [grade]
+        else:
+            pass
 
 class Mentor:
     def __init__(self, name, surname):
@@ -24,7 +33,7 @@ class Reviewer(Mentor):
         return super().__call__(*args, **kwargs)
 
     def rate_hw(self, student, course, grade):
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress and grade in range(1,11):
             if course in student.grades:
                 student.grades[course] += [grade]
             else:
