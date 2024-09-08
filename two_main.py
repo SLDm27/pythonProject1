@@ -29,9 +29,8 @@ class Student:
         grades_count = 0
         courses_in_progress_string = ', '.join(self.courses_in_progress)
         finished_courses_string = ', '.join(self.finished_courses)
-        for k in self.grades:
-            grades_count += len(self.grades[k])
-        self.average_rating = sum(map(sum, self.grades.values())) / grades_count
+        all_rating = sum(self.grades.values(), [])
+        self.average_rating = sum(all_rating) / len(all_rating)
         res = f'Имя: {self.name}\n' \
               f'Фамилия: {self.surname}\n' \
               f'Средняя оценка за домашнее задание: {self.average_rating}\n' \
@@ -43,7 +42,7 @@ class Student:
         """Реализует возможность выставления оценки лектору студентом, если это лектор ведет лекции по данному курсу у этого студента
         Принимает на вход переменные rate_hw(self, lecturer, course, grade)"""
 
-        if isinstance(lecturer, Lecturer) and course in self.courses_in_progress and course in lecturer.courses_attached:
+        if isinstance(lecturer, Lecturer) and course in self.courses_in_progress:
             if course in lecturer.grades:
                 lecturer.grades[course] += [grade]
             else:
@@ -118,7 +117,7 @@ class Reviewer(Mentor):
         или возвращает ошибку.
         Принимает на вход переменные rate_hw(self, student, course, grade)"""
 
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+        if isinstance(student, Student) and course in student.courses_in_progress:
             if course in student.grades:
                 student.grades[course] += [grade]
             else:
