@@ -96,10 +96,10 @@ class Lecturer(Mentor):
             Имя: Some
             Фамилия: Buddy
         """
+
         grades_count = 1
-        for k in self.grades:
-            grades_count += len(self.grades[k])
-        self.average_rating = sum(map(sum, self.grades.values())) / grades_count
+        all_rating = sum(self.grades.values(), [])
+        self.average_rating = sum(all_rating) / len(all_rating)
         res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rating}'
         return res
 
@@ -146,9 +146,9 @@ some_student = Student(name='Ruoy', surname='Eman')
 some_student.courses_in_progress += ['Python', 'Git']
 some_student.finished_courses += ['Введение в программирование']
 
-some_student.rate_hw(some_lecturer, 'Python', 'Git', 9.9)
-some_student.rate_hw(some_lecturer, 'Python', 'Git', 9.9)
-some_student.rate_hw(some_lecturer, 'Python', 'Git', 9.9)
+some_student.rate_hw(some_lecturer, 'Python', 9.9)
+some_student.rate_hw(some_lecturer, 'Python', 9.9)
+some_student.rate_hw(some_lecturer, 'Python', 9.9)
 
 some_reviewer.rate_hw(some_student, 'Python', 9.9)
 some_reviewer.rate_hw(some_student, 'Python', 9.9)
