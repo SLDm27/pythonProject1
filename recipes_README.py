@@ -1,6 +1,5 @@
 from pprint import pprint
 
-
 with open('recipes.txt', encoding= 'utf-8') as f:
     cook_book = {}
     for line in f:
@@ -16,6 +15,26 @@ with open('recipes.txt', encoding= 'utf-8') as f:
         cook_book[dish_name] = ingredients
         f.readline()
 
-pprint(cook_book)
+
+def get_shop_list_by_dishes(dishes, person_count):
+    shop_list = {}
+    for dish in dishes:
+        for ingredient in cook_book[dish]:
+            ingredient_name = ingredient['ingredient_name']
+            quantity = int(ingredient['quantity']) * person_count
+            measure = ingredient['measure']
+            if ingredient_name in shop_list:
+                shop_list[ingredient_name]['quantity'] += quantity
+            else:
+                shop_list[ingredient_name] = {'measure': measure, 'quantity': quantity}
+    return shop_list
+
+dishes = ['Омлет', 'Фахитос', 'Утка по-пекински']
+person_count = 3
+shop_list = get_shop_list_by_dishes(dishes, person_count)
+pprint(shop_list)
+
+# print(get_shop_list_by_dishes)
+
 
 
